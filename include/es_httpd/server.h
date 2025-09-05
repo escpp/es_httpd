@@ -67,6 +67,27 @@ namespace es_httpd
             });
         }
 
+        void PUT(const std::string &path, rest::Handler handler)
+        {
+            m_service.PUT(path.c_str(), [handler](HttpRequest *req, HttpResponse *resp) -> int {
+                return rest::exec_handler(handler, req, resp);
+            });
+        }
+
+        void PATCH(const std::string &path, rest::Handler handler)
+        {
+            m_service.PATCH(path.c_str(), [handler](HttpRequest *req, HttpResponse *resp) -> int {
+                return rest::exec_handler(handler, req, resp);
+            });
+        }
+
+        void DELETE(const std::string &path, rest::Handler handler)
+        {
+            m_service.Delete(path.c_str(), [handler](HttpRequest *req, HttpResponse *resp) -> int {
+                return rest::exec_handler(handler, req, resp);
+            });
+        }
+
     private:
         hv::HttpServer m_server;
         hv::HttpService m_service;
